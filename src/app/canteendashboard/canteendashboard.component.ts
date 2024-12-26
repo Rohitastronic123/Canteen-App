@@ -20,7 +20,7 @@ export class CanteendashboardComponent implements OnInit {
   newOrdercounts= { breakfast: 0, lunch: 0, snacks: 0 };
   showDetails = false;
   selectedCategory = '';
-  displayedColumns: string[] = ['customerName', 'itemName', 'quantity', 'timestamp','status'];
+  displayedColumns: string[] = ['customerName',  'quantity', 'timestamp','status'];
   availableStatuses: string[] = ['Pending', 'In Progress', 'Completed', 'Cancelled'];
   previewUrl: string | ArrayBuffer | null = null;
   loading: boolean = true; 
