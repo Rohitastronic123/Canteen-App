@@ -102,9 +102,12 @@
 
   <!-- Add Item Dialog Form -->
   <div *ngIf="showAddItemForm" class="add-item-form">
-    <h2>Add Item</h2>
+    
     <form (ngSubmit)="submitItemForm()">
       <!-- Category Field -->
+      <h2 style="text-align: center;  border-bottom: groove;
+      border-radius: 5px;
+      border-color: ivory;">Add Item</h2>
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
         <mat-select [(value)]="newItem.category" name="category" required>
