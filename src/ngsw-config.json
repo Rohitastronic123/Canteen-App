@@ -7,7 +7,7 @@
         "updateMode": "prefetch",
         "resources": {
           "files": [
-            "assets/main2logo.png",
+            "./assets/main2logo.png",
             "/index.html",
             "/styles.css",
             "/main.js"
