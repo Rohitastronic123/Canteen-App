@@ -1,0 +1,38 @@
+<div class="cart-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button routerLink="/canteen" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Cart</span>
+  </mat-toolbar>
+
+  <div *ngIf="cart.length === 0" class="empty-cart">
+    <p>Your cart is empty.</p>
+  </div>
+
+  <div *ngIf="cart.length > 0" class="cart-items">
+    <!-- Iterate over categories -->
+    <div *ngFor="let category of groupedCart | keyvalue">
+      <h3>{{ category.key }}</h3> <!-- Category name -->
+      <div *ngFor="let item of category.value">
+        <mat-card class="cart-card">
+          <mat-card-content>
+            <img mat-card-image [src]="item.image" alt="{{ item.name }}">
+            <h4>{{ item.name }}</h4>
+            <p>{{ item.description }}</p>
+            <p><strong>Quantity: {{ item.quantity }}</strong></p>
+            <div class="button-row">
+              <button mat-raised-button color="warn" (click)="removeFromCart(item)">Remove</button>
+              <button mat-raised-button color="primary" (click)="increaseQuantity(item)">+</button>
+              <button mat-raised-button color="accent" (click)="decreaseQuantity(item)">-</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+
+
+  <button mat-raised-button color="primary" class="button-place" [disabled]="cart.length === 0" (click)="placeOrder()">Place Order</button>
+</div>

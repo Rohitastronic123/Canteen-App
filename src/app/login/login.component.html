@@ -1,0 +1,18 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="username" name="username" required>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </mat-card-footer>
+  </mat-card>
+</div>

@@ -1,0 +1,59 @@
+<!-- Canteen Component Template (Updated) -->
+<div class="canteen-container">
+  <!-- Mat Toolbar for Desktop view -->
+  <mat-toolbar color="primary">
+    <span>RSO Canteen</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="logout()">Logout</button>
+    <mat-icon (click)="sideNav.toggle()" *ngIf="isMobile">menu</mat-icon>
+  </mat-toolbar>
+
+  <!-- Side Navigation for Mobile view -->
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sideNav mode="side" position="end" class="sidenav">
+      <button mat-button (click)="logout()">Logout</button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <!-- Category and Menu Content -->
+      <div class="category-selection">
+        <button *ngFor="let category of categories" 
+                mat-raised-button 
+                [color]="category === selectedCategory ? 'primary' : ''"
+                (click)="selectedCategory = category">
+          {{ category }}
+        </button>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-items">
+          <mat-card *ngFor="let item of getFilteredItems()" class="menu-card">
+            <img mat-card-image [src]="item.image" alt="{{ item.name }}">
+            <mat-card-content>
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.description }}</p>
+              <p>Price: {{ item.price | currency }}</p>
+              <p>Quantity: {{ item.quantity || 1 }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-icon-button color="primary" (click)="increaseQuantity(item)">+</button>
+              <button mat-icon-button color="warn" (click)="decreaseQuantity(item)" [disabled]="!item.quantity || item.quantity <= 0">-</button>
+              <button mat-raised-button color="primary" (click)="addToOrder(item)">Add to Order</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="order-summary" *ngIf="order.length > 0">
+        <h3>Your Order:</h3>
+        <div *ngFor="let item of order">
+          <p>{{ item.category }} ({{ item.quantity }})</p>
+        </div>
+        <button mat-raised-button color="accent" (click)="placeOrder()">Place Order</button>
+      </div>
+
+      <div class="order-message" *ngIf="orderMessage">
+        <p>{{ orderMessage }}</p>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

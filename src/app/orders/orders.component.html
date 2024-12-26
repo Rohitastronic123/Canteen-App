@@ -1,0 +1,26 @@
+<div class="order-container">
+    <mat-toolbar color="primary">
+      <span>Your Orders</span>
+      <button mat-button routerLink="/canteen">Back to Menu</button>
+    </mat-toolbar>
+  
+    <div *ngIf="orders.length === 0" class="empty-orders">
+      <p>You have no orders placed yet.</p>
+    </div>
+  
+    <div *ngIf="orders.length > 0" class="orders-list">
+      <mat-card *ngFor="let order of orders" class="order-card">
+        <mat-card-content>
+          <!-- <h3>Order ID: {{ order.id }}</h3> -->
+          <p><strong>Status: </strong>{{ order.status }}</p>
+          <!-- <p><strong>Total Price: ₹{{ order.totalPrice }}</strong></p> -->
+          <!-- <p><strong>Order Date: </strong>{{ order.orderDate | 'dd/mm/yyyy' }}</p> -->
+          
+          <div *ngFor="let item of order.items">
+            <p>{{ item.name }} - {{ item.quantity }} x ₹{{ item.price }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  

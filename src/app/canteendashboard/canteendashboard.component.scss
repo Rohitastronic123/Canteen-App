@@ -1,0 +1,326 @@
+// Global styles for layout
+$primary-color: #1976d2; // Blue theme
+$secondary-color: #ffd54f; // Yellow for highlights
+$card-bg-color: #f1f1f1; // Light background for cards
+$table-bg-color: #fff; // Table background
+$table-header-color: #fafafa; // Table header background
+
+// Flexbox grid for cards
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+
+  // Add a subtle shadow effect for cards
+  mat-card {
+    background-color: $card-bg-color;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    mat-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $primary-color;
+      margin-bottom: 8px;
+    }
+
+    mat-card-content {
+      color: #333;
+      font-size: 1rem;
+    }
+  }
+}
+
+// Responsive Table styling
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: $table-bg-color;
+
+  // Table header styling
+  th.mat-header-cell {
+    background-color: $table-header-color;
+    font-weight: 600;
+    color: #333;
+    padding: 16px;
+    text-align: left; // Align header text to the left for better readability
+  }
+
+  td.mat-cell {
+    padding: 16px;
+    color: #555;
+    text-align: left; // Align data text to the left for consistency
+  }
+
+  td.mat-cell ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  tr.mat-row {
+    transition: background-color 0.3s ease;
+  }
+
+  tr.mat-row:hover {
+    background-color: #f7f7f7;
+  }
+  mat-paginator {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+  }
+  // Make table responsive for small devices
+  @media (max-width: 768px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 12px; // Reduce padding for smaller screens
+      font-size: 0.9rem; // Smaller font size for better readability on small screens
+    }
+
+    th.mat-header-cell {
+      font-size: 1rem; // Slightly larger font for headers
+    }
+
+    td.mat-cell {
+      font-size: 0.85rem;
+    }
+      mat-paginator {
+      font-size: 12px; // Smaller paginator controls
+      padding: 4px 12px; // Reduce padding on paginator for mobile
+    }
+  }
+
+  // Even smaller devices (phones)
+  @media (max-width: 480px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 6px; // Further reduce padding
+      font-size: 0.8rem; // Adjust font size
+    }
+
+    td.mat-cell {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Button Styling
+button {
+  background-color: $primary-color;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Make the overall page layout responsive
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+}
+
+// Center align the page title and make it responsive
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  color: $primary-color;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-left: 22px;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+// Styling for the status dropdown
+.status-dropdown {
+  width: 100%;
+  .mat-form-field {
+    width: 100%; // Ensures the dropdown takes full width of its container
+  }
+
+  .mat-select {
+    font-size: 14px;
+    width: 100%; // Ensure the select element takes up full width
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+  .mat-option {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  // Make the dropdown responsive for smaller screens
+  @media (max-width: 768px) {
+    .mat-select {
+      font-size: 12px; // Slightly smaller font for better space usage
+    }
+
+    .mat-option {
+      font-size: 12px; // Reduce option font size for small screens
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mat-select {
+      font-size: 10px; // Adjust font size even more for smaller screens
+    }
+
+    .mat-option {
+      font-size: 10px; // Keep font consistent
+    }
+  }
+}
+::ng-deep .mat-form-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  width: 50px  !important;  // Customize the width as per your requirement
+}
+.mat-form-field {
+  --mat-form-field-infix-width: 50px  !important; /* Override width */
+}/* Success Snackbar */
+.success-snackbar {
+  background-color: #4caf50;  // Green color for success
+  color: white;
+}
+
+/* Error Snackbar */
+.error-snackbar {
+  background-color: #f44336;  // Red color for error
+  color: white;
+}
+.add-item-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px;
+  z-index: 999;
+
+  form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    @media (max-width: 768px) {
+      max-width: 350px; // Smaller max width on tablets and phones
+    }
+
+    @media (max-width: 480px) {
+      padding: 16px; // Reduce padding on small devices
+      max-width: 90%; // Allow form to take most of the screen on very small screens
+    }
+
+    mat-form-field {
+      width: 100%; // Ensure full width for form fields
+      margin-bottom: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 49%; // Make buttons full width on smaller screens
+      margin-left: 1%;
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+   
+  }
+}
+
+// Image upload styling (no mat-form-field)
+input[type="file"] {
+  display: block;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+// Button Styling for the floating add item button
+.add-item-button {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background-color: $primary-color;
+  color: white;
+  font-size: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.image-preview {
+  margin-top: 16px;
+  text-align: center;
+
+  img {
+    max-width: 100%; // Ensure the image doesn't overflow
+    max-height: 200px; // Limit the height for a uniform preview size
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+.loader-container img {
+  width: 100px; /* Adjust size of the loader */
+  height: 100px;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.logo-img img{
+  width: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 50px;
+}

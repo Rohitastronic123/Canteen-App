@@ -1,0 +1,150 @@
+.canteen-container {
+  padding: 1rem;
+  .menu-section {
+    margin: 20px;
+
+    h2 {
+      margin-bottom: 10px;
+      color: #3f51b5;
+    }
+
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .menu-card {
+      width: 300px;
+
+      mat-card-content {
+        h3 {
+          margin: 10px 0;
+        }
+
+        p {
+          margin: 5px 0;
+        }
+      }
+
+      mat-card-actions {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .spacer {
+      flex: 1;
+    }
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .category-selection {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 0 10px;
+    }
+  }
+
+  .menu-section {
+    margin: 20px;
+
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      .menu-card {
+        width: 266px;
+
+        img {
+          height: 200px;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  /* Media Queries for Mobile Responsiveness */
+  @media (max-width: 600px) {
+    .mat-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        display: none; /* Hide default buttons for mobile */
+      }
+
+      .spacer {
+        display: none;
+      }
+
+      mat-icon {
+        display: block; /* Ensure the menu icon is visible */
+      }
+    }
+
+    /* Side Navigation styles for mobile */
+    .sidenav-container {
+      display: flex;
+      flex-direction: column; /* Ensure correct layout for sidenav container */
+      height: 100vh;
+
+      .sidenav {
+        width: 250px;
+        padding: 20px;
+        color: #3f51b5;
+      }
+
+      .mat-sidenav-content {
+        width: 100%;
+      }
+    }
+
+    .sidenav {
+      background-color: #fff;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      
+      button {
+        display: block; 
+        width: 100%; 
+        margin-bottom: 15px;
+        text-align: left; 
+        border-bottom: 2px solid #3f51b5;
+      }
+    }
+
+    .menu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; 
+    }
+
+    .menu-card {
+      width: 100%; 
+      margin-bottom: 20px; 
+    }
+  }
+}
+.success-snackbar {
+  background-color: #4caf50;  // Green color for success
+  color: white;
+}
+
+/* Error Snackbar */
+.error-snackbar {
+  background-color: #f44336;  // Red color for error
+  color: white;
+}
