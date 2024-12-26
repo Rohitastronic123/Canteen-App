@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from 'src/auth.service';
 
 @Component({
   selector: 'app-canteendashboard',
@@ -16,6 +17,7 @@ export class CanteendashboardComponent implements OnInit {
   totalOrders: number = 0;
   pageSize: number = 10;
   orderCounts = { breakfast: 0, lunch: 0, snacks: 0 };
+  newOrdercounts= { breakfast: 0, lunch: 0, snacks: 0 };
   showDetails = false;
   selectedCategory = '';
   displayedColumns: string[] = ['customerName', 'itemName', 'quantity', 'timestamp','status'];
@@ -24,7 +26,7 @@ export class CanteendashboardComponent implements OnInit {
   loading: boolean = true; 
   showAddItemForm: boolean = false;
   newItem: any = { category: '', description: '', image: null };
-  constructor(private firestore: AngularFirestore,private snackBar: MatSnackBar) {}
+  constructor(private firestore: AngularFirestore,private snackBar: MatSnackBar,private authService:AuthService) {}
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 @ViewChild(MatSort, { static: false }) sort: MatSort;
 dataSource: MatTableDataSource<any>;
@@ -47,7 +49,7 @@ dataSource: MatTableDataSource<any>;
           orderItems: Array.isArray(order.orderItems) ? order.orderItems : [], 
           user: order.user || {}, 
         }));
-        
+       
         this.loading = false;
         this.categorizeOrders();
         console.log(this.orders);
@@ -64,14 +66,35 @@ dataSource: MatTableDataSource<any>;
         order.orderItems.forEach(item => {
           if (item.category === 'Breakfast') {
             this.orderCounts.breakfast++;
+           
           } else if (item.category === 'Lunch') {
             this.orderCounts.lunch++;
+            this.showOrderDetails('Lunch');
           } else if (item.category === 'Snacks') {
             this.orderCounts.snacks++;
+            this.showOrderDetails('Snacks');
           }
         });
       }
+     
     });
+    this.updatedatacount();
+  }
+  updatedatacount(){
+    if(this.orderCounts.breakfast!=this.newOrdercounts.breakfast){
+      this.showOrderDetails('Breakfast');
+      this.newOrdercounts.breakfast=this.orderCounts.breakfast;
+    }
+    else if(this.orderCounts.lunch!=this.newOrdercounts.lunch){
+      this.showOrderDetails('Lunch');
+      this.newOrdercounts.lunch=this.orderCounts.lunch;
+    }
+    else if( this.orderCounts.snacks!=this.newOrdercounts.lunch){
+      this.showOrderDetails('Snacks');
+      this.newOrdercounts.snacks=this.orderCounts.snacks;
+      
+    }
+
   }
 
   showOrderDetails(category: string) {
@@ -83,9 +106,28 @@ dataSource: MatTableDataSource<any>;
     this.totalOrders = this.selectedCategoryOrders.length;
     
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  
     console.log(this.totalOrders)
     this.showDetails = true;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'customerName':
+          return item.user.username.toLowerCase() || ''; 
+        case 'timestamp':
+          return new Date(item.timestamp).getTime();         
+          case 'quantity':
+            return item.orderItems[0].quantity|| '';
+          
+
+        default:
+          return item[property];
+          
+      }
+      
+    };
+    this.dataSource.sort = this.sort;
+
+
   }
 
   closeDetails() {
@@ -232,5 +274,10 @@ dataSource: MatTableDataSource<any>;
     });
   }
  
-
+logout(){
+  
+    localStorage.removeItem('username');
+    this.authService.router.navigate(['/login']);
+  
+}
 }

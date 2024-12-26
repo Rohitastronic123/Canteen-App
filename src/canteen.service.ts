@@ -64,7 +64,6 @@ export class CanteenService {
   placeOrder(order: any): Promise<any> {
     const orderItems = order.items.map(item => ({
       category: item.category || "Unknown", 
-      name: item.name || "Unnamed Item", 
       quantity: item.quantity || 0 
     })) || []; 
   

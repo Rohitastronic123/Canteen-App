@@ -150,10 +150,10 @@ h1 {
   margin-bottom: 24px;
   padding-left: 22px;
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.0rem;
+   padding-left: 0px;
   }
 }
-
 // Styling for the status dropdown
 .status-dropdown {
   width: 100%;
@@ -320,7 +320,37 @@ input[type="file"] {
 }
 .logo-img img{
   width: auto;
-  margin-top: 20px;
+  margin-top: 17px;
   margin-left: 20px;
   height: 50px;
+  @media (max-width: 768px) {
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+}
+.logout-btn{
+  margin-left: 100px;
+  margin-bottom: 35px;
+  @media (max-width: 768px) {
+    margin-left: 0px;
+    width: 60px;
+    height: 54px;
+    font-size: 12px;
+    margin-top: 10px;
+    text-indent: -5px;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 0px;
+    width: 60px;
+    height: 54px;
+    font-size: 12px;
+    margin-top: 10px;
+    text-indent: -5px;
+  }
 }

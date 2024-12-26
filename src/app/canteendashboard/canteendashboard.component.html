@@ -11,7 +11,9 @@
 
 <div class="rcd">
 <h1>RSO Canteen Dashboard</h1></div>
+<div style="margin-right: -29px;"><button type="button" (click)="logout()" mat-raised-button class="logout-btn">Logout</button></div>
 </div>
+
   <!-- Add Item Button -->
   <button mat-fab class="add-item-button" (click)="openAddItemDialog()">+</button>
 
@@ -26,73 +28,77 @@
   </div>
 
   <!-- Order Details Table -->
-  <div *ngIf="showDetails">
-    <h2 style="text-align: center;">Order Details for {{ selectedCategory }}</h2>
+<!-- Order Details Table -->
+<div *ngIf="showDetails">
+  <h2 style="text-align: center;">Order Details for {{ selectedCategory }}</h2>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Customer Name Column -->
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngIf="order.user && order.user.username">{{ order.user.username }}</span>
+        <span *ngIf="!order.user || !order.user.username">No User</span>
+      </td>
+    </ng-container>
     
-    <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
-      <!-- Customer Name Column -->
-      <ng-container matColumnDef="customerName">
-        <th mat-header-cell *matHeaderCellDef> Customer Name </th>
-        <td mat-cell *matCellDef="let order">
-          <span *ngIf="order.user && order.user.username">{{ order.user.username }}</span>
-          <span *ngIf="!order.user || !order.user.username">No User</span>
-        </td>
-      </ng-container>
+
+    <!-- Item Name Column -->
+    <ng-container matColumnDef="itemName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </th>
+      <td mat-cell *matCellDef="let order">
+        <ul>
+          <li *ngFor="let item of order.orderItems">{{ item.name }}</li>
+        </ul>
+      </td>
+    </ng-container>
     
-      <!-- Item Name Column -->
-      <ng-container matColumnDef="itemName">
-        <th mat-header-cell *matHeaderCellDef> Item Name </th>
-        <td mat-cell *matCellDef="let order">
-          <ul>
-            <li *ngFor="let item of order.orderItems">{{ item.name }}</li>
-          </ul>
-        </td>
-      </ng-container>
-    
-      <!-- Quantity Column -->
-      <ng-container matColumnDef="quantity">
-        <th mat-header-cell *matHeaderCellDef> Quantity </th>
-        <td mat-cell *matCellDef="let order">
-          <ul>
-            <li *ngFor="let item of order.orderItems">{{ item.quantity || '0' }}</li>
-          </ul>
-        </td>
-      </ng-container>
-    
-      <!-- Order Time Column -->
-      <ng-container matColumnDef="timestamp">
-        <th mat-header-cell *matHeaderCellDef> Order Time </th>
-        <td mat-cell *matCellDef="let order">
-          {{ order.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}
-        </td>
-      </ng-container>
-    
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let order">
-          <mat-form-field appearance="outline" class="status-dropdown">
-            <mat-select [(value)]="order.status" (selectionChange)="updateStatus(order)">
-              <mat-option *ngFor="let status of availableStatuses" [value]="status">
-                {{ status }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </ng-container>
-    
-      <!-- Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    
-    <!-- Paginator -->
-    <mat-paginator [length]="totalOrders" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChanged($event)">
-    </mat-paginator>
-    
-    
-    <button mat-button (click)="closeDetails()">Close</button>
-  </div>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+      <td mat-cell *matCellDef="let order">
+        <ul>
+          <li *ngFor="let item of order.orderItems">{{ item.quantity || '0' }}</li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <!-- Order Time Column -->
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Time </th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}
+      </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let order">
+        <mat-form-field appearance="outline" class="status-dropdown">
+          <mat-select [(value)]="order.status" (selectionChange)="updateStatus(order)">
+            <mat-option *ngFor="let status of availableStatuses" [value]="status">
+              {{ status }}
+            </mat-option>
+        
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paginator -->
+  <mat-paginator [length]="totalOrders" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChanged($event)">
+  </mat-paginator>
+
+  <button mat-button (click)="closeDetails()">Close</button>
+</div>
+
 
   <!-- Add Item Dialog Form -->
   <div *ngIf="showAddItemForm" class="add-item-form">
