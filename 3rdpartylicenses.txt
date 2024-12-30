@@ -85,8 +85,6 @@ THE SOFTWARE.
 
 @angular/material/select
 
-@angular/material/sidenav
-
 @angular/material/snack-bar
 
 @angular/material/table
